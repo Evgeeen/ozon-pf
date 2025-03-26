@@ -21,13 +21,14 @@ abstract class AbstractDto implements DtoInterface
 
     public function jsonSerialize(): mixed
     {
+        $this->initProperty();
+
         $array = [];
 
         foreach ($this as $propertyName => $value) {
             $property = $this->getProperty($propertyName);
-            dump($property);
 
-            if (is_null($property)) {
+            if (is_null($property) || is_null($value) ) {
                 continue;
             }
 
@@ -54,8 +55,10 @@ abstract class AbstractDto implements DtoInterface
             /** @var DtoInterface|string $propertyType */
             $propertyType = (string)str_replace("?", "", $property->getType()->getName());
 
-            if ($this->isSubClassOfDTO($value) || $this->isNotSubClassOfDTO($propertyType)) { //
+            if ($this->isSubClassOfDTO($value) || $this->isNotSubClassOfDTO($propertyType)) {
                 $property->setValue($this, $value);
+            } elseif ($this->isCollection($value)) {
+
             } else {
                 $property->setValue($this, is_null($value) ? null : $propertyType::fromPrimitives($value));
             }
@@ -80,6 +83,11 @@ abstract class AbstractDto implements DtoInterface
     private function isDto(mixed $value): bool
     {
         return is_subclass_of($value, self::class);
+    }
+
+    private function isCollection(mixed $value): bool
+    {
+        return is_subclass_of($value, AbstractDtoCollection::class);
     }
 
     private function initProperty(): void
