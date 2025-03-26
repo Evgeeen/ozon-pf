@@ -7,7 +7,7 @@ namespace Evgeeen;
 use Evgeeen\Models\Requests\GetCampaignRequest;
 use Evgeeen\Models\Requests\GetCampaignStatisticRequest;
 use Evgeeen\Models\Requests\GetReportsListRequest;
-use Evgeeen\Models\Responses\CheckReportResponse;
+use Evgeeen\Models\Responses\Report;
 use Evgeeen\Models\Responses\GetCampaignResponse;
 use Evgeeen\Models\Responses\GetCampaignStatisticResponse;
 use GuzzleHttp\RequestOptions;
@@ -38,14 +38,14 @@ class CampaignClient extends Client
         return GetCampaignStatisticResponse::fromPrimitives($this->getDecodedBody($response->getBody()));
     }
 
-    public function checkReport(string $uuid): CheckReportResponse
+    public function checkReport(string $uuid): Report
     {
         $response = $this->sendRequest(
             "GET",
             $this->prepareUri(self::CHECK_REPORT_STATUS, ['uuid' => $uuid])
         );
 
-        return CheckReportResponse::fromPrimitives($this->getDecodedBody($response->getBody()));
+        return Report::fromPrimitives($this->getDecodedBody($response->getBody()));
     }
 
     public function getReport(string $uuid): string

@@ -10,6 +10,6 @@ class Reports extends AbstractDtoCollection
 {
     protected function type(): string
     {
-        return Report::class;
+        return ReportRequest::class;
     }
 }

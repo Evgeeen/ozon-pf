@@ -7,7 +7,7 @@ namespace Evgeeen\Models\Responses;
 use Evgeeen\Models\Dto\AbstractDto;
 use Evgeeen\Models\ReportRequest;
 
-class CheckReportResponse extends AbstractDto
+class Report extends AbstractDto
 {
     public const STATE_NOT_STARTED = 'NOT_STARTED';
     public const STATE_IN_PROGRESS = 'IN_PROGRESS';
