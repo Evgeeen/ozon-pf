@@ -6,6 +6,7 @@ namespace Evgeeen\Models\Responses;
 
 use Evgeeen\Models\Dto\AbstractDto;
 use Evgeeen\Models\ReportRequest;
+use Evgeeen\Models\Request;
 
 class Report extends AbstractDto
 {
@@ -19,7 +20,7 @@ class Report extends AbstractDto
         public readonly string $state,
         public readonly string $createdAt,
         public readonly string $updatedAt,
-        public readonly ReportRequest $request,
+        public readonly Request $request,
         public readonly string $kind,
         public readonly ?string $link = null,
         public readonly ?string $error = null,

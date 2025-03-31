@@ -15,7 +15,7 @@ use GuzzleHttp\RequestOptions;
 class CampaignClient extends Client
 {
     private const GET_CAMPAIGN = "/api/client/campaign";
-    private const CREATE_STATISTIC = "/api/client/statistics";
+    private const CREATE_STATISTIC = "/api/client/statistics/json";
     private const CHECK_REPORT_STATUS = "/api/client/statistics/{uuid}";
     private const GET_REPORT = "/api/client/statistics/report";
     private const GET_REPORT_LIST = "/api/client/statistics/externallist";
@@ -51,14 +51,14 @@ class CampaignClient extends Client
     public function getReport(string $uuid): string
     {
         $response = $this->sendRequest("GET", self::GET_REPORT, [
-            RequestOptions::QUERY => ['uuid' => $uuid],
+            RequestOptions::QUERY => ['UUID' => $uuid],
         ]);
 
         return $response->getBody()->getContents();
     }
 
-    public function getReports(GetReportsListRequest $request): GetReportsListResponse
-    {
-
-    }
+//    public function getReports(GetReportsListRequest $request): GetReportsListResponse
+//    {
+//
+//    }
 }
