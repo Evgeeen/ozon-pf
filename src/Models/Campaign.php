@@ -21,7 +21,7 @@ class Campaign extends AbstractDto
         public readonly string $weeklyBudget,
         public readonly array $placement,
         public readonly string $productAutopilotStrategy,
-        public readonly Autopilot $autopilot,
+        public readonly ?Autopilot $autopilot = null,
     ) {
     }
 }
