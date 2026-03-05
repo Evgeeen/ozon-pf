@@ -10,7 +10,7 @@ use Traversable;
 
 abstract class AbstractDtoCollection implements DtoInterface, IteratorAggregate
 {
-    private array $items;
+    private array $items = [];
 
     abstract protected function type(): string;
 

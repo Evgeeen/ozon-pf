@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\ClientException;
 use Evgeeen\Exceptions\RequestException;
 use Evgeeen\Exceptions\RequestFailedException;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 abstract class AbstractClient
 {
@@ -23,8 +24,10 @@ abstract class AbstractClient
         try {
             $response = $this->client()->request($method, $this->buildUri($source), $this->configureOptions($options));
         } catch (ClientException $e) {
-            throw new RequestFailedException($e->getCode(), (string)$e->getResponse()->getBody()->getContents());
-        } catch (RequestException $e) {
+            throw new RequestFailedException($e->getCode(), (string)$e->getResponse()->getBody(), $e->getMessage());
+        } catch (RequestFailedException $e) {
+            throw $e;
+        } catch (Throwable $e) {
             throw new RequestException($e->getMessage());
         }
 
